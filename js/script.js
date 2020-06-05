@@ -5,19 +5,28 @@ let main = document.querySelector("main");
 
 let ultimasNoticias = document.getElementById("ultimas");
 let tcnologiaNoticias = document.getElementById("tec");
+let atualizar = document.getElementById("atualizar");
 
-rodar("");
+let momento = "";
+
+rodar(momento);
+
+atualizar.addEventListener("click", () => {
+    rodar(momento);
+})
 ultimasNoticias.addEventListener("click", () => {
-    rodar("");
+    momento = "";
+    rodar(momento);
 })
 
 tcnologiaNoticias.addEventListener("click", () => {
-rodar("technology")
+    momento = "technology";
+    rodar(momento)
 })
 
-function rodar(cat){
-    if (cat!=null){cat=`category=${cat}&`}
-    main.innerHTML =" ";
+function rodar(cat) {
+    if (cat != null) { cat = `category=${cat}&` }
+    main.innerHTML = " ";
     fetch(`${BASE_URL}/top-headlines?${cat}country=br&apiKey=${API_KEY}`).then((Response) => Response.json()).then((dados) => {
         for (dado in dados.articles) {
             console.log(dados.articles[dado].urlToImage);
